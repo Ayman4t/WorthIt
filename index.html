@@ -1,229 +1,339 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#0b0f1a">
-<title>احسبها بعمرك | WorthIt</title>
-<meta name="description" content="احسب تكلفة أي شراء أو عادة بساعات عمرك الحقيقية.">
-<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#101828">
+<title>احسبها بعمرك & مصروفي الآمن | WorthIt & SafeSpend</title>
+<meta name="description" content="اعرف ميزانيتك الآمنة اليومية، وكم ساعة من عمرك يكلفك أي منتج أو عادة، وأصدر فاتورة سحب من العمر للمشاركة.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23101828'/%3E%3Ctext x='32' y='44' font-size='34' text-anchor='middle'%3E⏳%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" defer></script>
+<!-- AdSense: <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script> -->
+<script>tailwind.config={theme:{extend:{colors:{ink:'#101828',paper:'#EEF1F6',cobalt:'#2F4BFF',amber:'#FFB703',night:'#0E1020'}}}}</script>
 <style>
-:root{--p:#f4efe4}
-body{font-family:Tajawal,sans-serif;background:radial-gradient(at 85% 0,#17305a 0,transparent 50%),radial-gradient(at 0 100%,#2b1745 0,transparent 45%),#0b0f1a;color:#e8ecf5;min-height:100vh}
-.card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:18px;padding:18px}
-.inp{width:100%;background:rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.14);border-radius:10px;padding:9px 11px;color:#fff;outline:0}
-.inp:focus{border-color:#2dd4bf}.inp option{background:#111827}
-.lbl{display:block;font-size:13px;color:#9aa6c0;margin-bottom:4px}
-.btn{background:#2dd4bf;color:#04101a;font-weight:800;border-radius:10px;padding:10px 16px;transition:.2s}.btn:hover{background:#5eead4}
-.seg{display:flex;gap:4px;background:rgba(0,0,0,.4);padding:4px;border-radius:12px}
-.seg button{flex:1;padding:8px 6px;border-radius:9px;font-size:14px;color:#9aa6c0;transition:.25s}
-.seg button.on{background:#2dd4bf;color:#04101a;font-weight:800}
-.tabb{flex:1;padding:11px 6px;border-radius:12px;font-weight:700;font-size:13px;color:#9aa6c0;transition:.25s}
-.tabb.on{background:linear-gradient(135deg,#14b8a6,#3b82f6);color:#fff}
-.pane,.rcw{animation:up .35s ease}@keyframes up{from{opacity:0;transform:translateY(8px)}}
-.seg2{height:26px;transition:width .6s ease;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#0b0f1a}
-.ad-slot{border:1px dashed rgba(255,255,255,.2);border-radius:12px;display:flex;align-items:center;justify-content:center;color:#6b7690;font-size:12px;margin:16px auto;width:100%;overflow:hidden}
-.ad-d{max-width:728px;height:90px}.ad-m{max-width:300px;height:250px}
-@media(max-width:767px){.ad-d{display:none}}@media(min-width:768px){.ad-m{display:none}}
-.big{font-size:34px;font-weight:800;line-height:1.3}
-/* receipt */
-.sh{filter:drop-shadow(0 12px 22px rgba(0,0,0,.55));max-width:360px;margin:0 auto}
-.rc{font-family:'Courier New',Tajawal,monospace;color:#222}
-.rb{background-color:var(--p);background-image:repeating-linear-gradient(0deg,transparent 0 3px,rgba(0,0,0,.03) 3px 4px);padding:4px 18px 8px;position:relative;font-size:13px}
-.zt,.zb{height:9px}
-.zt{background:linear-gradient(315deg,var(--p) 50%,transparent 50%) 0 0/14px 14px,linear-gradient(45deg,var(--p) 50%,transparent 50%) 0 0/14px 14px}
-.zb{background:linear-gradient(135deg,var(--p) 50%,transparent 50%) 0 0/14px 14px,linear-gradient(225deg,var(--p) 50%,transparent 50%) 0 0/14px 14px}
-.rw{display:flex;justify-content:space-between;gap:10px;padding:4px 0;border-bottom:1px dotted #999}
-.rc hr{border:0;border-top:2px dashed #777;margin:8px 0}.c{text-align:center}
-.st{position:absolute;top:46%;left:50%;transform:translate(-50%,-50%) rotate(-13deg);white-space:nowrap;border:3px solid;border-radius:8px;padding:6px 12px;font-weight:800;font-size:17px;background:rgba(244,239,228,.4);font-family:Tajawal,sans-serif}
-.bad{color:#c4122f}.good{color:#0f8a4a}
-.modal .card{background:#111a2e;max-width:520px;width:100%;max-height:85vh;overflow:auto}
-</style></head>
+body{background:#EEF1F6;color:#101828;font-family:'Cairo',sans-serif;padding-bottom:env(safe-area-inset-bottom)}
+.num{font-family:'Space Mono',monospace;font-variant-numeric:tabular-nums}
+.card{background:#fff;border:1px solid #E1E5EE;border-radius:16px;padding:16px}
+.inp{width:100%;background:#fff;border:2px solid #D5DAE5;border-radius:10px;padding:.6rem .8rem;font-weight:600}
+.inp:focus{outline:none;border-color:#2F4BFF;box-shadow:0 0 0 4px rgba(47,75,255,.15)}
+.lb{display:block;font-size:.8rem;font-weight:700;margin-bottom:.25rem;color:#44506A}
+.btn{border-radius:12px;font-weight:900;padding:.7rem 1.2rem;transition:.15s}.btn:active{transform:scale(.97)}
+.chip{background:rgba(255,255,255,.12);border-radius:999px;padding:.15rem .7rem;flex:none}
+.seg{display:flex;background:#E4E8F1;border-radius:10px;padding:3px}.seg button{flex:1;padding:.45rem;border-radius:8px;font-weight:800;font-size:.8rem;transition:.2s}.seg .on{background:#101828;color:#fff}
+#tabs button{position:relative;z-index:1;padding:.5rem 0;color:#AEB6C8;transition:color .2s}#tabs button.on{color:#101828}
+#ind{position:absolute;top:4px;bottom:4px;width:calc((100% - 8px)/4);background:#FFB703;border-radius:9px;transition:right .3s cubic-bezier(.4,0,.2,1)}
+.ad-slot{height:100px;border:1px dashed #AEB6C8;border-radius:10px;display:flex;align-items:center;justify-content:center;color:#8791A8;font-size:.75rem;overflow:hidden}
+.bump{animation:bump .4s}@keyframes bump{40%{transform:scale(1.04)}}
+.shake{animation:shake .3s}@keyframes shake{25%{transform:translateX(5px)}75%{transform:translateX(-5px)}}
+dialog{border:0;border-radius:18px;padding:0;width:min(94vw,420px);max-height:92vh;overflow:auto;background:#fff;color:#101828}
+dialog::backdrop{background:rgba(10,12,24,.65)}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+/*RCSS*/
+</style>
+</head>
 <body>
-<header class="sticky top-0 z-40 backdrop-blur bg-[#0b0f1a]/80 border-b border-white/10" style="padding-top:env(safe-area-inset-top,0)">
-<div class="max-w-4xl mx-auto px-3 py-2 flex items-center justify-between gap-2">
-<div class="font-extrabold text-teal-300 whitespace-nowrap">⏳ احسبها بعمرك <span class="text-white/40 text-xs font-medium">WorthIt</span></div>
-<button id="pill" data-open="prof" class="text-xs bg-white/10 hover:bg-white/20 transition rounded-full px-3 py-1.5 text-white/90"></button>
-</div></header>
+<header class="sticky top-0 z-30 bg-ink text-white">
+  <div class="max-w-xl mx-auto px-3 pt-2 pb-2">
+    <div class="flex items-center justify-between gap-2">
+      <b class="font-black text-lg">Worth<span class="text-amber">It</span> <span class="text-[11px] font-semibold text-slate-400">& SafeSpend</span></b>
+      <button id="gear" class="chip text-xs font-extrabold">إعداداتي ⚙️</button>
+    </div>
+    <div id="badge" class="mt-1.5 flex gap-1.5 text-[11px] font-bold overflow-x-auto whitespace-nowrap"></div>
+    <nav id="tabs" class="relative mt-2 grid grid-cols-4 bg-white/10 rounded-xl p-1 text-xs font-extrabold">
+      <i id="ind"></i>
+      <button>☀️ اليومي</button><button>🛍️ احسبها</button><button>☕ العادات</button><button>📊 التشريح</button>
+    </nav>
+  </div>
+</header>
 
-<main class="max-w-4xl mx-auto px-3 pb-10">
-<nav class="seg mt-4" style="padding:5px">
-<button class="tabb" data-t="1">📊 تشريح المرتب ويوم التحرر</button>
-<button class="tabb" data-t="2">🛍️ حاسبة شراء السلعة</button>
-<button class="tabb" data-t="3">☕ نزيف العادات اليومية</button>
-</nav>
-<div class="ad-slot ad-d">إعلان 728×90</div><div class="ad-slot ad-m">إعلان 300×250</div>
+<main class="max-w-xl mx-auto px-3 py-4 space-y-4">
+  <div class="ad-slot" id="ad-top">مساحة إعلانية <!-- <ins class="adsbygoogle" style="display:block;height:100px" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="0000000001"></ins> --></div>
 
-<!-- TAB 1 -->
-<section class="pane space-y-4" data-p="1">
-<div class="card grid sm:grid-cols-2 gap-3">
-<div><label class="lbl">إجمالي الدخل الشهري (جنيه)</label><input class="inp" type="number" inputmode="decimal" min="0" data-k="income" placeholder="مثال: 15000"></div>
-<div><label class="lbl">ساعات العمل الأسبوعية</label><input class="inp" type="number" inputmode="decimal" min="1" data-k="hours"></div>
-</div>
-<div class="card"><div class="font-bold mb-3">الالتزامات الشهرية الثابتة</div>
-<div id="list" class="space-y-2"></div>
-<button id="add" class="btn mt-3 text-sm">+ إضافة بند</button></div>
-<div id="b1" class="card text-center text-lg leading-loose bg-rose-500/10 border-rose-400/30"></div>
-<div class="grid sm:grid-cols-2 gap-3">
-<div class="card text-center"><div class="lbl">سعر ساعتك الاسمي</div><div id="hn" class="big text-sky-300">—</div></div>
-<div class="card text-center"><div class="lbl">سعر ساعتك الحقيقي (الحر)</div><div id="hr" class="big text-emerald-300">—</div></div>
-</div>
-<div id="hd" class="text-center text-sm text-amber-300"></div>
-<div class="card"><div class="font-bold mb-3">فين بيروح مرتبك؟</div>
-<div class="flex rounded-lg overflow-hidden bg-black/40"><div id="bo" class="seg2 bg-rose-500"></div><div id="bw" class="seg2 bg-amber-400"></div><div id="bf" class="seg2 bg-emerald-400"></div></div>
-<div id="lg" class="flex flex-wrap gap-x-4 gap-y-1 mt-3 text-xs text-white/70"></div></div>
-</section>
+  <div id="pwa" hidden class="card flex items-center gap-3 text-sm font-bold">
+    <span class="flex-1">أضف مصروفي الآمن إلى شاشتك الرئيسية لفتحه بضغطة زر كل صباح <span id="pwa-ios" class="block text-xs text-slate-500 font-semibold"></span></span>
+    <button id="pwa-go" class="btn bg-ink text-white text-xs py-2">إضافة</button><button id="pwa-x" class="text-slate-400 text-lg" aria-label="إغلاق">✕</button>
+  </div>
 
-<!-- TAB 2 -->
-<section class="pane space-y-4 hidden" data-p="2">
-<div class="card grid sm:grid-cols-2 gap-3">
-<div><label class="lbl">اسم السلعة</label><input class="inp" data-k="p.name" placeholder="مثال: موبايل جديد"></div>
-<div><label class="lbl">سعر السلعة (جنيه)</label><input class="inp" type="number" inputmode="decimal" min="0" data-k="p.price"></div>
-<div><label class="lbl">معدل الاستخدام</label><select class="inp" data-k="p.use"><option value="30">يومياً</option><option value="4.33">أسبوعياً</option><option value="1">شهرياً</option><option value="0.5">مناسبات</option></select></div>
-<div><label class="lbl">العمر المتوقع</label><select class="inp" data-k="p.life"><option value="6">6 أشهر</option><option value="12">سنة</option><option value="24">سنتين</option><option value="60">5 سنوات</option></select></div>
-<div class="sm:col-span-2"><label class="lbl">أحسب من...</label><div class="seg" data-k="p.base"><button data-v="t">إجمالي المرتب</button><button data-v="f">رصيدك الحر بعد الالتزامات</button></div></div>
-</div>
-<div id="hero" class="card text-center text-xl leading-loose bg-rose-500/10 border-rose-400/30"></div>
-<div class="grid sm:grid-cols-3 gap-3">
-<div class="card text-center"><div class="lbl">تكلفة كل استخدام</div><div id="cpu" class="font-bold text-lg text-sky-300">—</div></div>
-<div class="card text-center"><div class="lbl">لو استثمرتها 5 سنين (10%)</div><div id="opp" class="font-bold text-lg text-emerald-300">—</div></div>
-<div class="card text-center"><div class="lbl">خطر الشراء الاندفاعي</div><div id="risk" class="inline-block mt-1 px-3 py-1 rounded-full font-bold">—</div></div>
-</div>
-</section>
+  <!-- TAB 1 -->
+  <section class="space-y-4">
+    <div id="hero" class="bg-night text-white rounded-2xl p-5 text-center">
+      <p class="text-slate-300 text-sm font-bold">ميزانيتك الآمنة المتاحة للنهاردة:</p>
+      <div class="my-1"><span id="h-amt" class="num text-6xl font-black text-amber">0</span> <span id="h-cur" class="text-xl font-extrabold"></span></div>
+      <div class="h-2 rounded-full bg-white/15 overflow-hidden"><i id="h-bar" class="block h-full bg-amber" style="width:0;transition:width .5s"></i></div>
+      <p id="h-sub" class="text-xs text-slate-400 mt-1.5"></p>
+      <p class="text-sm text-slate-200 mt-3">لو صرفت في الحدود دي، هتوصل ليوم القبض والتزاماتك محمية تماماً.</p>
+      <span id="h-days" class="inline-block mt-3 bg-white/10 rounded-full px-4 py-1.5 text-sm font-extrabold"></span>
+    </div>
+    <div class="card">
+      <label class="lb" for="d-amt">المبلغ المخروم</label>
+      <div class="flex gap-2"><input id="d-amt" class="inp" type="number" inputmode="decimal" min="0" placeholder="كم صرفت الآن؟"><button id="d-go" class="btn bg-cobalt text-white whitespace-nowrap">خصم من اليوم ⚡</button></div>
+      <button id="d-undo" class="mt-2 text-xs font-bold text-slate-500 hover:text-cobalt">↩︎ تراجع عن آخر خصم اليوم</button>
+    </div>
+    <div class="grid grid-cols-2 gap-3">
+      <div class="card text-center"><p id="h-streak" class="font-extrabold text-sm leading-relaxed"></p></div>
+      <div class="card text-center"><p id="h-next" class="font-bold text-sm leading-relaxed"></p></div>
+    </div>
+    <div class="card" style="background:#14192e;color:#fff;border-color:#2A3050">
+      <div class="flex items-center justify-between"><b class="text-lg">🔐 صندوق الالتزامات المحمية</b><span class="text-xs font-extrabold bg-amber text-ink rounded-full px-3 py-1">🔒 لا نقترب منها أبداً</span></div>
+      <p class="num text-3xl font-black text-amber mt-2" id="v-tot"></p>
+      <div id="v-list" class="mt-2 text-sm text-slate-300 space-y-1"></div>
+    </div>
+  </section>
 
-<!-- TAB 3 -->
-<section class="pane space-y-4 hidden" data-p="3">
-<div class="card grid sm:grid-cols-2 gap-3">
-<div><label class="lbl">اسم العادة</label><input class="inp" data-k="h.name" placeholder="قهوة كافيه، سجائر، دليفري..."></div>
-<div><label class="lbl">تكلفة المرة الواحدة (جنيه)</label><input class="inp" type="number" inputmode="decimal" min="0" data-k="h.cost"></div>
-<div class="sm:col-span-2"><label class="lbl">التكرار</label><select class="inp" data-k="h.freq"><option value="365">يومياً</option><option value="260">5 أيام بالأسبوع</option><option value="104">مرتين بالأسبوع</option></select></div>
-</div>
-<div class="card text-center"><div id="h1" class="big text-rose-400">—</div><div id="h2" class="mt-2 text-white/80 leading-loose"></div></div>
-<div class="card"><div class="font-bold mb-3">لو وفرت؟</div>
-<div class="seg" data-k="h.pct"><button data-v="0.5">وفر 50%</button><button data-v="1">وفر 100%</button></div>
-<div id="h3" class="mt-4 grid sm:grid-cols-2 gap-3 text-center"></div></div>
-</section>
+  <!-- TAB 2 -->
+  <section class="space-y-4" hidden>
+    <h2 class="font-black text-xl">🛍️ احسبها بعمرك</h2>
+    <div class="card space-y-3">
+      <div class="grid grid-cols-2 gap-3">
+        <div><label class="lb" for="b-name">اسم المنتج</label><input id="b-name" class="inp" placeholder="آيفون جديد"></div>
+        <div><label class="lb" for="b-price">سعر المنتج</label><input id="b-price" class="inp" type="number" inputmode="decimal" min="0" placeholder="45000"></div>
+        <div><label class="lb" for="b-freq">مرات الاستخدام</label><select id="b-freq" class="inp"><option value="30.4">يومياً</option><option value="8.66">مرتين بالأسبوع</option><option value="4.33">أسبوعياً</option><option value="1">شهرياً</option><option value="0">لمرة واحدة فقط</option></select></div>
+        <div><label class="lb" for="b-life">العمر المتوقع</label><select id="b-life" class="inp"><option value="3">3 أشهر</option><option value="6">6 أشهر</option><option value="12" selected>سنة</option><option value="24">سنتين</option><option value="60">5 سنوات</option></select></div>
+      </div>
+      <div class="seg" id="b-seg"><button class="on" data-v="tot">احسب من إجمالي المرتب</button><button data-v="free">احسب من رصيدك الحر بعد الالتزامات</button></div>
+    </div>
+    <p id="b-warn" hidden class="text-sm font-bold text-red-600">أدخل مرتبك والتزاماتك من «إعداداتي» أولاً، ورصيدك الحر يجب أن يكون أكبر من صفر.</p>
+    <div id="b-out" hidden class="space-y-3">
+      <div class="bg-night text-white rounded-2xl p-5 text-center">
+        <h3 class="text-2xl font-black leading-snug">هذا المنتج سيكلّفك <span id="b-d" class="num text-amber text-5xl mx-1"></span> يوم و <span id="b-h" class="num text-amber text-5xl mx-1"></span> ساعة عمل من عمرك!</h3>
+        <p id="b-wage" class="text-xs text-slate-400 mt-3"></p>
+        <span id="b-risk" class="inline-block mt-3 px-4 py-1.5 rounded-full text-sm font-extrabold"></span>
+      </div>
+      <div class="card"><p class="font-extrabold">تكلفة كل مرة استخدام فعلياً: <span id="b-cpu" class="num text-cobalt text-2xl"></span></p><p id="b-uses" class="text-sm text-slate-500 mt-1"></p></div>
+      <button id="b-rc" class="btn w-full bg-amber text-ink text-lg">🧾 إصدار فاتورة سحب من العمر</button>
+    </div>
+  </section>
 
-<div class="ad-slot ad-d">إعلان 728×90</div><div class="ad-slot ad-m">إعلان 300×250</div>
+  <!-- TAB 3 -->
+  <section class="space-y-4" hidden>
+    <h2 class="font-black text-xl">☕ نزيف العادات والتوفير</h2>
+    <div class="card grid grid-cols-2 gap-3">
+      <div class="col-span-2"><label class="lb" for="k-name">اسم العادة</label><input id="k-name" class="inp" placeholder="قهوة، سجائر، دليفري، أوبر"></div>
+      <div><label class="lb" for="k-cost">تكلفة المرة الواحدة</label><input id="k-cost" class="inp" type="number" inputmode="decimal" min="0" placeholder="60"></div>
+      <div><label class="lb" for="k-freq">التكرار</label><select id="k-freq" class="inp"><option value="365">يومياً</option><option value="104">مرتين بالأسبوع</option><option value="52">أسبوعياً</option><option value="12">شهرياً</option></select></div>
+    </div>
+    <div id="k-out" hidden class="space-y-3">
+      <div class="bg-night text-white rounded-2xl p-5 text-center">
+        <p class="text-slate-300 text-sm font-bold">هذه العادة تحرق سنوياً</p>
+        <p class="num text-4xl font-black text-amber my-1" id="k-y"></p>
+        <p class="font-extrabold">أي <span id="k-d" class="num text-amber text-2xl"></span> يوم عمل كاملة من عمرك كل سنة</p>
+        <p id="k-p" class="text-xs text-slate-400 mt-2"></p>
+      </div>
+      <div class="card space-y-3">
+        <b>لو وفرت؟ 💡</b>
+        <div class="seg" id="k-seg"><button class="on" data-v=".5">وفر 50%</button><button data-v="1">وفر 100%</button></div>
+        <div class="grid grid-cols-2 gap-3 text-center"><div class="bg-paper rounded-xl p-3"><p class="text-xs font-bold text-slate-500">خلال سنة</p><p class="num font-black text-lg" id="k-s1"></p></div><div class="bg-paper rounded-xl p-3"><p class="text-xs font-bold text-slate-500">خلال 3 سنوات</p><p class="num font-black text-lg" id="k-s3"></p></div></div>
+        <p id="k-eq" class="font-extrabold text-cobalt text-center"></p>
+      </div>
+      <button id="k-rc" class="btn w-full bg-amber text-ink text-lg">🧾 إصدار فاتورة سحب من العمر</button>
+    </div>
+  </section>
 
-<!-- RECEIPTS -->
-<section class="mt-6">
-<div class="text-center font-bold mb-4">🧾 فاتورتك جاهزة للمشاركة</div>
-<div class="rcw" data-p="1"><div class="sh" id="rc1"></div></div>
-<div class="rcw hidden" data-p="2"><div class="sh" id="rc2"></div></div>
-<div class="rcw hidden" data-p="3"><div class="sh" id="rc3"></div></div>
-<div class="flex flex-wrap gap-3 justify-center mt-5">
-<button class="btn" id="dl">تحميل الفاتورة كصورة 📸</button>
-<button class="btn" style="background:#a78bfa" id="sh">مشاركة سريعة 🚀</button></div>
-</section>
+  <!-- TAB 4 -->
+  <section class="space-y-4" hidden>
+    <h2 class="font-black text-xl">📊 تشريح المرتب ويوم التحرر</h2>
+    <div id="f-out" class="space-y-3"></div>
+  </section>
+
+  <div class="ad-slot" id="ad-bottom">مساحة إعلانية <!-- ins adsbygoogle (slot 0000000002) --></div>
 </main>
 
-<footer class="border-t border-white/10 py-6 text-center text-sm text-white/50">
-<div class="flex justify-center gap-5 mb-2"><button data-open="privacy" class="hover:text-white">سياسة الخصوصية</button><button data-open="terms" class="hover:text-white">شروط الاستخدام</button><button data-open="about" class="hover:text-white">عن الأداة</button></div>
-© احسبها بعمرك | WorthIt — أداة تثقيفية وليست استشارة مالية</footer>
+<footer class="bg-white border-t border-slate-200 mt-6">
+  <div class="max-w-xl mx-auto px-3 py-5 text-center text-xs text-slate-500 space-y-2">
+    <nav class="flex justify-center gap-5 font-bold text-slate-600 text-sm"><a href="#" data-i="priv">سياسة الخصوصية</a><a href="#" data-i="terms">شروط الاستخدام</a><a href="#" data-i="about">عن الأداة</a></nav>
+    <p>أداة توعوية وليست نصيحة مالية. كل بياناتك تبقى داخل متصفحك.</p>
+  </div>
+</footer>
 
-<!-- MODALS -->
-<div class="modal hidden fixed inset-0 z-50 bg-black/70 flex items-center justify-center p-4" id="m-prof"><div class="card"><div class="font-bold text-lg mb-3">بياناتك المالية الأساسية</div>
-<div class="space-y-3"><div><label class="lbl">راتبك الصافي الشهري (جنيه)</label><input class="inp" type="number" inputmode="decimal" min="0" data-k="income"></div>
-<div><label class="lbl">ساعات العمل الأسبوعية</label><input class="inp" type="number" inputmode="decimal" min="1" data-k="hours"></div>
-<p class="text-xs text-white/50">الالتزامات تُضاف من تبويب «تشريح المرتب». كل شيء يُحفظ تلقائياً على جهازك فقط.</p>
-<button class="btn w-full" data-close>حفظ</button></div></div></div>
-<div class="modal hidden fixed inset-0 z-50 bg-black/70 flex items-center justify-center p-4" id="m-privacy"><div class="card leading-loose text-sm"><div class="font-bold text-lg mb-2">سياسة الخصوصية</div>
-لا نجمع أي بيانات شخصية ولا نرسل شيئاً إلى أي خادم. كل ما تدخله (الدخل، الالتزامات، السلع، العادات) يُحفظ في <b>localStorage</b> داخل متصفحك فقط، ويمكنك مسحه في أي وقت من إعدادات المتصفح. قد تعرض الإعلانات (Google AdSense) ملفات تعريف ارتباط خاصة بمزود الإعلانات وفق سياساته، ولا نتحكم فيها ولا نشاركها ببياناتك المالية.<button class="btn w-full mt-4" data-close>إغلاق</button></div></div>
-<div class="modal hidden fixed inset-0 z-50 bg-black/70 flex items-center justify-center p-4" id="m-terms"><div class="card leading-loose text-sm"><div class="font-bold text-lg mb-2">شروط الاستخدام</div>
-باستخدامك الأداة فإنك توافق على أنها مجانية وتُقدَّم «كما هي» دون أي ضمان. النتائج تقديرية مبنية على أرقامك أنت، وأنت المسؤول عن قراراتك المالية. يُمنع إعادة نشر الأداة أو استغلالها تجارياً دون إذن.<button class="btn w-full mt-4" data-close>إغلاق</button></div></div>
-<div class="modal hidden fixed inset-0 z-50 bg-black/70 flex items-center justify-center p-4" id="m-about"><div class="card leading-loose text-sm"><div class="font-bold text-lg mb-2">عن الأداة</div>
-«احسبها بعمرك» تحوّل الأسعار إلى ساعات من عمرك: كم يوم وكم ساعة عمل تدفع ثمن شيء ما. <b>إخلاء مسؤولية:</b> هذه أداة توعوية فقط، وليست نصيحة مالية أو استثمارية. عائد الـ10% المعروض افتراض للتوضيح ولا يمثل وعداً بأي ربح.<button class="btn w-full mt-4" data-close>إغلاق</button></div></div>
-<div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-white text-black px-4 py-2 rounded-full text-sm font-bold z-[60] hidden"></div>
+<!-- Settings drawer -->
+<dialog id="dset"><div class="p-5 space-y-3">
+  <h3 class="font-black text-xl">⚙️ إعداداتي المالية</h3>
+  <div class="grid grid-cols-2 gap-3">
+    <div><label class="lb" for="f-sal">المرتب الصافي</label><input id="f-sal" class="inp" type="number" inputmode="decimal" min="0"></div>
+    <div><label class="lb" for="f-pd">يوم نزول المرتب</label><input id="f-pd" class="inp" type="number" inputmode="numeric" min="1" max="31"></div>
+    <div><label class="lb" for="f-hrs">ساعات العمل الأسبوعية</label><input id="f-hrs" class="inp" type="number" inputmode="decimal" min="1"></div>
+    <div><label class="lb" for="f-cur">العملة</label><select id="f-cur" class="inp"><option>جنيه</option><option>دولار</option><option>ريال</option><option>درهم</option><option>دينار</option></select></div>
+    <div class="col-span-2"><label class="lb" for="f-work">تكاليف العمل الشهرية (مواصلات، وجبات... اختياري)</label><input id="f-work" class="inp" type="number" inputmode="decimal" min="0"></div>
+  </div>
+  <div><b class="text-sm">🔒 الالتزامات المحمية (إيجار، أقساط، جمعيات، ديون، فواتير)</b><div id="coms" class="mt-2"></div><button id="com-add" class="text-sm font-extrabold text-cobalt">+ إضافة التزام</button></div>
+  <p id="f-err" hidden class="text-sm font-bold text-red-600"></p>
+  <div class="flex gap-2"><button id="f-save" class="btn flex-1 bg-ink text-white">حفظ</button><button id="f-x" class="btn bg-paper">إغلاق</button></div>
+</div></dialog>
+
+<!-- Receipt -->
+<dialog id="drcp"><div class="p-3 text-center">
+  <div class="overflow-x-auto">
+  <div id="story" style="width:360px;min-height:640px;background:#101828;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:28px 20px;margin:0 auto;direction:rtl">
+    <div class="rc" style="width:320px"><div class="zz-t"></div>
+      <div class="rc-body">
+        <div class="c" style="font-weight:900;font-size:20px;font-family:'Cairo',sans-serif">فاتورة سحب من العمر</div>
+        <div class="c" style="font-weight:700;font-size:13px;letter-spacing:.14em">LIFE HOURS BANK</div>
+        <div class="dash"></div><div id="r-rows"></div><div class="dash"></div>
+        <div class="tot" style="font-family:'Cairo',sans-serif"><div id="r-tl" style="font-size:13px;font-weight:700;color:#C9CFE6"></div><div id="r-tv" style="font-size:21px;font-weight:900;line-height:1.55"></div></div>
+        <div style="height:104px;display:flex;align-items:center;justify-content:center"><div id="r-stamp" class="stamp"></div></div>
+        <div class="dash" style="margin-top:0"></div>
+        <div class="c" id="r-bar" style="line-height:0"></div>
+        <div class="c" id="r-site" style="font-size:12px;font-weight:700;margin-top:6px"></div>
+        <div class="c" style="font-size:12px;color:#555B6B;margin:8px 0 6px;font-family:'Cairo',sans-serif">الوقت هو العملة الحقيقية التي لا تُسترد.</div>
+      </div><div class="zz-b"></div></div>
+  </div></div>
+  <div class="flex flex-col gap-2 mt-3">
+    <button id="r-dl" class="btn bg-amber text-ink">تحميل الفاتورة كصورة 📸</button>
+    <button id="r-sh" class="btn bg-ink text-white">مشاركة مباشرة 🚀</button>
+    <button id="r-x" class="text-sm font-bold text-slate-500 py-1">إغلاق</button>
+  </div>
+</div></dialog>
+
+<!-- Info -->
+<dialog id="dinfo"><div class="p-5"><h3 id="i-t" class="font-black text-xl mb-2"></h3><div id="i-b" class="text-sm leading-7 text-slate-700 space-y-2"></div><button id="i-x" class="btn bg-ink text-white w-full mt-4">حسناً</button></div></dialog>
 
 <script>
-const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)],
-N=n=>Math.round(n).toLocaleString('ar-EG'),N1=n=>(Math.round(n*10)/10).toLocaleString('ar-EG'),
-esc=s=>String(s).replace(/[&<>"]/g,c=>'&#'+c.charCodeAt(0)+';');
-const D={income:'',hours:40,tab:'1',items:[{id:1,n:'السكن والفواتير (إيجار، كهرباء، إنترنت)',a:'',t:'o'},{id:2,n:'التزامات وأقساط (جمعية، قروض، ديون)',a:'',t:'o'},{id:3,n:'تكلفة الذهاب للعمل (مواصلات، وجبات، مصاريف مكتبية)',a:'',t:'w'}],
-p:{name:'',price:'',use:'30',life:'12',base:'t'},h:{name:'',cost:'',freq:'365',pct:'0.5'}};
-let S;try{S={...D,...JSON.parse(localStorage.getItem('worthit')||'{}')}}catch(e){S=D}
-const save=()=>{try{localStorage.setItem('worthit',JSON.stringify(S))}catch(e){}};
-const gp=p=>p.split('.').reduce((o,k)=>o[k],S),sp=(p,v)=>{const k=p.split('.');k.length>1?S[k[0]][k[1]]=v:S[k[0]]=v};
-const eq=n=>n<1500?'وجبات عشاء فاخرة لأسابيع 🍽️':n<5000?'سماعات وساعة ذكية ⌚':n<15000?'موبايل جديد 📱':n<30000?'لابتوب جديد 💻':n<60000?'رحلة مصيف كاملة للعيلة 🏖️':'مقدمة عربية أو عمرة للعيلة كلها 🚗';
-const toast=t=>{const e=$('#toast');e.textContent=t;e.classList.remove('hidden');setTimeout(()=>e.classList.add('hidden'),2200)};
+const $=i=>document.getElementById(i),q=s=>[...document.querySelectorAll(s)];
+const fmt=(n,d=0)=>(+n||0).toLocaleString('en-US',{minimumFractionDigits:d,maximumFractionDigits:d});
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const pad=n=>String(n).padStart(2,'0'),dk=d=>`${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+const bump=(el,c='bump')=>{el.classList.remove(c);void el.offsetWidth;el.classList.add(c)};
+let S={sal:0,pd:25,hrs:40,work:0,com:[],cur:'جنيه',log:[],snap:{},first:null};
+try{Object.assign(S,JSON.parse(localStorage.getItem('ws2')||'null')||{});
+const o=JSON.parse(localStorage.getItem('worthit.profile.v1')||'null');if(o&&!S.sal){S.sal=+o.income||0;S.hrs=+o.hours||40;S.cur=o.cur||S.cur}}catch(e){}
+const save=()=>{try{localStorage.setItem('ws2',JSON.stringify(S))}catch(e){}};
+const m=n=>fmt(n)+' '+S.cur,fixed=()=>S.com.reduce((a,c)=>a+(+c.a||0),0),pool=()=>S.sal-fixed()-S.work,wage=b=>b/(S.hrs*4.33);
+function count(el,to){const f=el._v||0;el._v=to;const s=performance.now(),st=t=>{const p=Math.min((t-s)/600,1);el.textContent=fmt(f+(to-f)*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(st)};requestAnimationFrame(st)}
+const pdate=(y,mo,pd)=>new Date(y,mo,Math.min(pd,new Date(y,mo+1,0).getDate()));
+function cycle(){const t=new Date();t.setHours(0,0,0,0);let l=pdate(t.getFullYear(),t.getMonth(),S.pd);if(l>t)l=pdate(t.getFullYear(),t.getMonth()-1,S.pd);const n=pdate(l.getFullYear(),l.getMonth()+1,S.pd);return{t,last:l,next:n,left:Math.max(1,Math.round((n-t)/864e5)),len:Math.round((n-l)/864e5)}}
 
-function C(){const I=+S.income||0,H=+S.hours||40,mh=H*52/12,s=t=>S.items.filter(i=>i.t==t).reduce((a,i)=>a+(+i.a||0),0),ob=s('o'),wk=s('w'),tot=ob+wk,free=I-tot;
-return{I,H,mh,ob,wk,tot,free,nom:I/mh,real:Math.max(free,0)/mh,dh:H/5,day:I>0?Math.min(30,Math.ceil(tot/I*30)):0}}
+/* ---------- Header + tabs ---------- */
+function badge(){$('badge').innerHTML=[['المرتب',S.sal],['الالتزامات',fixed()],['الرصيد الحر',pool()]].map(([l,v])=>`<span class="chip">${l}: ${fmt(v)} ${S.cur}</span>`).join('')}
+function go(i){q('main>section').forEach((s,k)=>s.hidden=k!==i);q('#tabs button').forEach((b,k)=>b.classList.toggle('on',k===i));$('ind').style.right=`calc(4px + ${i} * (100% - 8px) / 4)`;scrollTo({top:0})}
+q('#tabs button').forEach((b,i)=>b.onclick=()=>go(i));
 
-function rcpt(i,rows,stamp){const sn='WI-'+Date.now().toString(36).slice(-6).toUpperCase();let x=0,r='';
-for(let k=0;k<50;k++){const w=1+((sn.charCodeAt(k%sn.length)+k*7)%3);if(k%2==0)r+=`<rect x="${x}" width="${w}" height="40"/>`;x+=w+1}
-$('#rc'+i).innerHTML=`<div class="rc"><div class="zt"></div><div class="rb">
-<div class="c" style="font-weight:800;font-size:16px;margin-top:6px">فاتورة سحب من العمر</div><div class="c" style="font-weight:700">LIFE HOURS BANK</div>
-<div class="c" style="font-size:11px">${new Date().toLocaleString('ar-EG')}</div><div class="c" style="font-size:11px">رقم الفاتورة: ${sn}</div><hr>
-${rows.map(([a,b])=>`<div class="rw"><span>${a}</span><b>${b}</b></div>`).join('')}<hr>
-<div class="c" style="font-weight:700">الإجمالي: ${rows[rows.length-1][1]}</div>
-${stamp?`<div class="st ${stamp[1]}">${stamp[0]}</div>`:''}
-<svg viewBox="0 0 ${x} 40" width="100%" height="46" preserveAspectRatio="none" style="margin-top:12px" fill="#222">${r}</svg>
-<div class="c" style="font-size:11px;margin:4px 0">${sn}</div><div class="c" style="font-size:11px">شكراً لأنك فكرت قبل ما تدفع</div></div><div class="zb"></div></div>`}
+/* ---------- TAB 1: daily runway ---------- */
+let curDay='';
+function home(){
+  const c=cycle(),td=dk(c.t),cs=dk(c.last),P=pool();curDay=td;let b=0,t=0;
+  S.log.forEach(e=>{if(e.d>=cs&&e.d<td)b+=e.a;else if(e.d===td)t+=e.a});
+  const al=Math.max(0,(P-b)/c.left),rem=al-t;S.snap[td]=al;if(!S.first)S.first=td;
+  let st=0;for(let k=0;k<365;k++){const d=new Date(c.t);d.setDate(d.getDate()-k);const key=dk(d);if(key<S.first)break;const sp=S.log.reduce((a,e)=>e.d===key?a+e.a:a,0),a=k?S.snap[key]:al;if(a!==undefined&&sp>a+.5)break;st++}
+  count($('h-amt'),Math.max(rem,0));$('h-amt').className='num text-6xl font-black '+(rem<0?'text-red-400':'text-amber');
+  $('h-cur').textContent=S.cur;$('h-bar').style.width=(al>0?Math.min(100,Math.max(0,rem/al*100)):0)+'%';
+  $('h-sub').textContent=P<=0?'التزاماتك أكبر من مرتبك، راجع إعداداتي.':rem<0?`تجاوزت ميزانية اليوم بـ ${m(-rem)}، وسيُوزَّع على الأيام الباقية تلقائياً.`:`من أصل ${m(al)} لليوم · صرفت ${m(t)}`;
+  $('h-days').textContent=`⏳ متبقي ${c.left} ${c.left===1?'يوم':'أيام'} على يوم القبض (${S.pd} · ${c.next.getDate()}/${c.next.getMonth()+1})`;
+  const nx=c.left>1?Math.max(0,(P-b-t)/(c.left-1)):null;
+  $('h-next').innerHTML=nx===null?'بكرة يوم القبض 🎉':`ميزانية بكرة: <b class="num">${m(nx)}</b><br><span class="text-xs ${nx>=al?'text-green-600':'text-red-600'}">${nx>=al?'⬆️ وفّرت فزادت':'⬇️ الزيادة اتوزّعت على الباقي'}</span>`;
+  $('h-streak').textContent=`🔥 ملتزم بميزانيتك لليوم الـ ${st} على التوالي`;
+  $('v-tot').textContent=m(fixed());
+  $('v-list').innerHTML=S.com.length?S.com.map(c=>`<div class="flex justify-between"><span>${esc(c.n||'التزام')}</span><b class="num">${fmt(c.a)}</b></div>`).join(''):'لم تضف التزامات بعد من «إعداداتي».';
+  save();
+}
+$('d-go').onclick=()=>{const a=+$('d-amt').value;if(!(a>0)){bump($('d-amt'),'shake');return}S.log.push({d:dk(new Date),a});if(S.log.length>600)S.log.shift();$('d-amt').value='';home();bump($('hero'))};
+$('d-amt').onkeydown=e=>{if(e.key==='Enter')$('d-go').click()};
+$('d-undo').onclick=()=>{const l=S.log[S.log.length-1];if(l&&l.d===dk(new Date)){S.log.pop();home();bump($('hero'))}};
 
-function R(){const c=C(),p=S.p,h=S.h,I=c.I;
-$('#pill').innerHTML=I>0?`<span class="hidden sm:inline">راتبك الصافي: ${N(I)} جنيه | ساعات العمل: ${N(c.H)} س/أسبوع | </span>صافي المتبقي الحر: ${N(c.free)} جنيه | تعديل ✏️`:'ابدأ بإدخال راتبك ✏️';
-// tab 1
-const over=I>0&&c.tot>=I;
-$('#b1').innerHTML=I<=0?'أدخل دخلك لتعرف متى يبدأ راتبك الحقيقي 👆':over?'🚨 التزاماتك تلتهم كل راتبك — لا يوجد راتب شخصي حقيقي!':c.tot==0?'أضف التزاماتك لتكتشف يوم التحرر المالي':`أنت تعمل لصالح التزاماتك حتى يوم <span class="text-5xl font-extrabold text-rose-400 block my-2">${N(c.day)}</span> من كل شهر! راتبك الشخصي الحقيقي يبدأ ${c.day<30?'يوم '+N(c.day+1):'من الشهر القادم'}.`;
-$('#hn').textContent=I>0?N1(c.nom)+' جنيه/س':'—';$('#hr').textContent=I>0?N1(c.real)+' جنيه/س':'—';
-$('#hd').textContent=I>0&&c.nom>0?`الالتزامات أكلت ${N((1-c.real/c.nom)*100)}% من قيمة ساعتك`:'';
-const po=I>0?Math.min(100,c.ob/I*100):0,pw=I>0?Math.min(100-po,c.wk/I*100):0,pf=I>0?100-po-pw:0;
-[['bo',po],['bw',pw],['bf',pf]].forEach(([k,v])=>{const e=$('#'+k);e.style.width=v+'%';e.textContent=v>8?N(v)+'%':''});
-$('#lg').innerHTML=`<span>🟥 الالتزامات الإجبارية ${N(po)}%</span><span>🟨 تكلفة النزول للشغل ${N(pw)}%</span><span>🟩 الفلوس الحرة ${N(pf)}%</span>`;
-const dayTxt=I>0&&c.tot>0?(over?'لا يوجد':'يوم '+N(c.day)):'—';
-rcpt(1,[['الدخل الشهري',N(I)+' ج'],['التزامات إجبارية',N(c.ob)+' ج'],['تكلفة الشغل',N(c.wk)+' ج'],['ساعتك الاسمية',N1(c.nom)+' ج'],['ساعتك الحقيقية',N1(c.real)+' ج'],['يوم التحرر',dayTxt]],I>0&&c.free/I<.25?['🚨 نزيف مالي مستمر','bad']:null);
-// tab 2
-const pr=+p.price||0,rate=p.base=='f'?c.real:c.nom,bm=p.base=='f'?c.free:I,uses=Math.max(1,+p.life*+p.use),cpu=pr/uses,ratio=bm>0?pr/bm:(pr>0?9:0);
-const rk=ratio>.3?['عالي الخطورة','bg-rose-500/25 text-rose-300']:ratio>=.1?['متوسط','bg-amber-500/25 text-amber-300']:['منخفض','bg-emerald-500/25 text-emerald-300'];
-let hero,wt='—';
-if(!pr)hero='أدخل سعر السلعة لتعرف كم تكلّفك من عمرك';
-else if(rate<=0)hero='🚨 لا يوجد رصيد حر أصلاً — هذه السلعة ستُدفع من ديونك أو من عمرك كله!';
-else{const hh=pr/rate,d=Math.floor(hh/c.dh);wt=`${N(d)} يوم و${N1(hh-d*c.dh)} ساعة`;
-hero=`هذا المنتج سيكلّفك <b class="text-rose-400 text-3xl">${N(d)}</b> يوم و <b class="text-rose-400 text-3xl">${N1(hh-d*c.dh)}</b> ساعة عمل من عمرك!`}
-$('#hero').innerHTML=hero;$('#cpu').textContent=pr?N1(cpu)+' جنيه':'—';
-$('#opp').textContent=pr?N(pr*Math.pow(1.1,5))+' جنيه':'—';
-const rb=$('#risk');rb.textContent=pr?rk[0]:'—';rb.className='inline-block mt-1 px-3 py-1 rounded-full font-bold '+(pr?rk[1]:'');
-rcpt(2,[['السلعة',esc(p.name||'—')],['السعر',N(pr)+' ج'],['تكلفة الاستخدام',pr?N1(cpu)+' ج':'—'],['الخطورة',pr?rk[0]:'—'],['تأخير يوم التحرر',I>0?'+'+N1(pr/I*30)+' يوم':'—'],['عمرك المسحوب',wt]],!pr?null:ratio>.3?['⚠️ فخ تسويقي - راجع نفسك','bad']:ratio<.1?['✅ صفقة تستحق الشراء','good']:null);
-// tab 3
-const co=+h.cost||0,an=co*+h.freq,hr=c.real>0?c.real:c.nom,ds=hr>0?an/hr/c.dh:0,s1=an*+h.pct,s3=s1*3;
-$('#h1').textContent=co?`تدفع سنوياً ${N(an)} جنيه`:'—';
-$('#h2').innerHTML=co&&hr>0?`هذه العادة تلتهم من عمرك <b class="text-rose-400">${N1(ds)}</b> يوماً كاملاً من العمل الشاق كل سنة!`:'أدخل تكلفة العادة (وراتبك) لتشوف النزيف';
-$('#h3').innerHTML=co?[['سنة',s1],['3 سنين',s3]].map(([l,v])=>`<div class="bg-black/30 rounded-xl p-3"><div class="lbl">توفير ${l}</div><div class="font-extrabold text-xl text-emerald-300">${N(v)} جنيه</div><div class="text-sm mt-1">يشتري لك: ${eq(v)}</div></div>`).join(''):'';
-rcpt(3,[['العادة',esc(h.name||'—')],['تكلفة المرة',N(co)+' ج'],['التكرار/سنة',N(+h.freq)+' مرة'],['أيام عمل محروقة/سنة',co&&hr>0?N1(ds)+' يوم':'—'],['تأخير يوم التحرر/شهر',I>0?'+'+N1(an/12/I*30)+' يوم':'—'],['المدفوع سنوياً',N(an)+' ج']],co&&(I>0?an>I*.6:an>3000)?['🚨 نزيف مالي مستمر','bad']:null);
+/* ---------- Settings ---------- */
+const comRow=(n='',a='')=>`<div class="flex gap-2 mb-2"><input class="inp" placeholder="الاسم (إيجار...)" value="${esc(n)}"><input class="inp" style="width:7rem" type="number" inputmode="decimal" placeholder="المبلغ" value="${a}"><button class="text-slate-400 px-1" onclick="this.parentNode.remove()" aria-label="حذف">✕</button></div>`;
+$('gear').onclick=()=>{$('f-sal').value=S.sal||'';$('f-pd').value=S.pd;$('f-hrs').value=S.hrs;$('f-work').value=S.work||'';$('f-cur').value=S.cur;$('coms').innerHTML=(S.com.length?S.com:[{}]).map(c=>comRow(c.n,c.a)).join('');$('f-err').hidden=true;$('dset').showModal()};
+$('com-add').onclick=()=>$('coms').insertAdjacentHTML('beforeend',comRow());
+$('f-x').onclick=()=>$('dset').close();
+$('f-save').onclick=()=>{
+  const sal=+$('f-sal').value,pd=Math.round(+$('f-pd').value),hrs=+$('f-hrs').value,e=$('f-err');
+  if(!(sal>0)||!(pd>=1&&pd<=31)||!(hrs>0)){e.textContent='أدخل مرتباً صحيحاً، ويوم قبض بين 1 و31، وساعات عمل أكبر من صفر.';e.hidden=false;return}
+  Object.assign(S,{sal,pd,hrs,work:+$('f-work').value||0,cur:$('f-cur').value,com:q('#coms>div').map(r=>{const i=r.querySelectorAll('input');return{n:i[0].value.trim(),a:+i[1].value||0}}).filter(c=>c.a>0)});
+  save();$('dset').close();all();
+};
+
+/* ---------- TAB 2: purchase ---------- */
+let base='tot',LB=null;
+function buy(){
+  const p=+$('b-price').value,B=base==='tot'?S.sal:pool(),w=wage(B);
+  $('b-warn').hidden=!(p>0)||w>0;if(!(p>0)||!(w>0)){$('b-out').hidden=true;return}
+  const lh=p/w;let d=Math.floor(lh/8),h=Math.round((lh-d*8)*10)/10;if(h>=8){d++;h=0}
+  const fq=+$('b-freq').value,lf=+$('b-life').value,u=fq?Math.max(1,Math.round(fq*lf)):1,cpu=p/u,r=p/B;
+  const rk=r>.3?['خطر عالي','#DC2626','#fff']:r>=.1?['خطر متوسط','#FFB703','#101828']:['خطر منخفض','#16A34A','#fff'];
+  $('b-out').hidden=false;$('b-d').textContent=fmt(d);$('b-h').textContent=fmt(h,h%1?1:0);
+  $('b-wage').textContent=`قيمة ساعتك ${base==='tot'?'الاسمية':'الحرة'}: ${fmt(wage(B),1)} ${S.cur}/ساعة · يوم العمل 8 ساعات`;
+  const rb=$('b-risk');rb.textContent=`${rk[0]} (${fmt(r*100)}% من ${base==='tot'?'دخلك':'دخلك الحر'})`;rb.style.background=rk[1];rb.style.color=rk[2];
+  $('b-cpu').textContent=fmt(cpu,cpu<10?2:0)+' '+S.cur;$('b-uses').textContent=fq?`موزعة على نحو ${fmt(u)} استخدام.`:'استخدام واحد فقط، فالسعر كاملاً على مرة واحدة.';
+  const good=r<.1||cpu<w*.25;
+  LB={rows:[['اسم السلعة',$('b-name').value.trim()||'منتج'],['السعر بالعملة',m(p)],['قيمة ساعتك',fmt(wage(B),1)+' '+S.cur+'/س'],['تكلفة الاستخدام الواحد',fmt(cpu,cpu<10?2:0)+' '+S.cur],['أساس الحساب',base==='tot'?'إجمالي المرتب':'الرصيد الحر']],tl:'المدفوع من رصيد عمرك:',tv:`${fmt(d)} يوم و ${fmt(h,h%1?1:0)} ساعة عمل شاق!`,
+    stamp:r>.3?['⚠️ فخ تسويقي - راجع نفسك','#C81E1E']:good?['✅ صفقة تستحق الشراء','#15803D']:['🤔 فكّر مرتين قبل الدفع','#B45309']};
+}
+$('b-seg').onclick=e=>{const b=e.target.closest('button');if(!b)return;base=b.dataset.v;q('#b-seg button').forEach(x=>x.classList.toggle('on',x===b));buy()};
+q('#b-name,#b-price,#b-freq,#b-life').forEach(i=>i.oninput=buy);
+$('b-rc').onclick=()=>LB&&rcpt(LB);
+
+/* ---------- TAB 3: habits ---------- */
+let sv=.5,LK=null;
+function hab(){
+  const c=+$('k-cost').value,f=+$('k-freq').value,y=c*f,w=wage(S.sal);
+  if(!(y>0)){$('k-out').hidden=true;return}
+  const d=w>0?y/(w*8):0,s1=y*sv,s3=s1*3,r=S.sal?s3/S.sal:0;
+  const eq=r<.3?'سماعات أو هدية محترمة':r<1?'هاتف جديد متوسط الفئة':r<3?'لابتوب جديد':r<6?'رحلة سياحية لعائلتك':'دفعة مقدمة لمشروع صغير أو سيارة';
+  $('k-out').hidden=false;$('k-y').textContent=m(y);$('k-d').textContent=fmt(d,1);$('k-p').textContent=S.sal?`ما يعادل ${fmt(y/(S.sal*12)*100,1)}% من دخلك السنوي`:'';
+  $('k-s1').textContent=m(s1);$('k-s3').textContent=m(s3);$('k-eq').textContent=`توفيرك خلال 3 سنوات يشتري لك: ${eq} 🎯`;
+  LK={rows:[['العادة',$('k-name').value.trim()||'عادة'],['التكلفة',`${m(c)} × ${fmt(f)}/سنة`],['المحروق سنوياً',m(y)],['لو وفرت '+fmt(sv*100)+'%',m(s3)+' / 3 سنوات']],tl:'نزيف سنوي من عمرك:',tv:`${fmt(d,1)} يوم عمل كل سنة!`,stamp:['🚨 نزيف سنوي','#C81E1E']};
+}
+$('k-seg').onclick=e=>{const b=e.target.closest('button');if(!b)return;sv=+b.dataset.v;q('#k-seg button').forEach(x=>x.classList.toggle('on',x===b));hab()};
+q('#k-name,#k-cost,#k-freq').forEach(i=>i.oninput=hab);
+$('k-rc').onclick=()=>LK&&rcpt(LK);
+
+/* ---------- TAB 4: dissection ---------- */
+let LD=null;
+function dis(){
+  const o=$('f-out');if(!(S.sal>0)){o.innerHTML='<p class="text-sm font-bold text-red-600">أدخل مرتبك من «إعداداتي» أولاً.</p>';return}
+  const c=cycle(),cm=fixed(),wk=S.work,fr=Math.max(0,S.sal-cm-wk),pc=Math.min(100,cm/S.sal*100),pw=Math.min(100-pc,wk/S.sal*100),pf=Math.max(0,100-pc-pw);
+  const sh=(cm+wk)/S.sal,X=Math.min(c.len,Math.ceil(sh*c.len)),ld=new Date(c.last);ld.setDate(ld.getDate()+Math.max(0,X-1));const fd=new Date(c.last);fd.setDate(fd.getDate()+X);
+  const nw=wage(S.sal),fw=wage(fr);
+  o.innerHTML=`<div class="bg-night text-white rounded-2xl p-5 text-center"><p class="text-slate-300 text-sm font-bold">يوم التحرر المالي 🗓️</p><p class="text-xl font-black leading-relaxed mt-2">${X>=c.len?'كل راتبك محجوز لالتزاماتك!':`أنت تعمل لصالح التزاماتك حتى يوم <span class="num text-amber text-3xl">${ld.getDate()}</span> من الشهر! راتبك الشخصي الحقيقي يبدأ يوم <span class="num text-amber text-3xl">${fd.getDate()}</span>.`}</p></div>
+  <div class="card"><div class="flex h-7 rounded-lg overflow-hidden text-[11px] font-extrabold text-white text-center leading-7"><div style="width:${pc}%;background:#DC2626">${pc>9?fmt(pc)+'%':''}</div><div style="width:${pw}%;background:#FFB703;color:#101828">${pw>9?fmt(pw)+'%':''}</div><div style="width:${pf}%;background:#16A34A">${pf>9?fmt(pf)+'%':''}</div></div>
+  <div class="flex justify-between text-xs font-bold mt-2"><span>🟥 الالتزامات ${fmt(pc)}%</span><span>🟨 تكلفة العمل ${fmt(pw)}%</span><span>🟩 الفلوس الحرة ${fmt(pf)}%</span></div></div>
+  <div class="grid grid-cols-2 gap-3 text-center"><div class="card"><p class="text-xs font-bold text-slate-500">ساعتك الاسمية</p><p class="num text-xl font-black">${fmt(nw,1)}</p></div><div class="card"><p class="text-xs font-bold text-slate-500">ساعتك الحرة الحقيقية</p><p class="num text-xl font-black text-red-600">${fmt(fw,1)}</p></div></div>
+  <button id="f-rc" class="btn w-full bg-amber text-ink text-lg">🧾 إصدار فاتورة سحب من العمر</button>`;
+  LD={rows:[['المرتب',m(S.sal)],['الالتزامات',m(cm)],['تكاليف العمل',m(wk)],['الفلوس الحرة',m(fr)],['ساعتك الاسمية → الحرة',`${fmt(nw,1)} → ${fmt(fw,1)}`]],tl:'تشتغل لصالح التزاماتك:',tv:`${X} يوم من ${c.len} كل دورة!`,stamp:sh>.5?['🚨 مرتب محجوز','#C81E1E']:['✅ وضع صحي','#15803D']};
+  $('f-rc').onclick=()=>rcpt(LD);
 }
 
-function L(){$('#list').innerHTML=S.items.map(i=>`<div class="flex flex-wrap gap-2 items-center"><input class="inp flex-1 min-w-[160px]" data-i="${i.id}" data-f="n" value="${esc(i.n)}"><input class="inp w-28" type="number" inputmode="decimal" min="0" data-i="${i.id}" data-f="a" value="${i.a}" placeholder="0"><select class="inp w-24" data-i="${i.id}" data-f="t"><option value="o" ${i.t=='o'?'selected':''}>إجباري</option><option value="w" ${i.t=='w'?'selected':''}>شغل</option></select><button data-del="${i.id}" aria-label="حذف" class="px-2 text-lg">🗑️</button></div>`).join('')}
-function sync(){$$('input[data-k],select[data-k]').forEach(e=>e.value=gp(e.dataset.k));
-$$('.seg[data-k]').forEach(g=>g.querySelectorAll('button').forEach(b=>b.classList.toggle('on',b.dataset.v==gp(g.dataset.k))));
-$$('.tabb').forEach(b=>b.classList.toggle('on',b.dataset.t==S.tab));
-$$('.pane,.rcw').forEach(e=>e.classList.toggle('hidden',e.dataset.p!=S.tab))}
-const show=id=>$('#m-'+id).classList.remove('hidden');
+/* ---------- Receipt ---------- */
+/*BARCODE*/
+const row=r=>`<div class="row"><span>${r[0]}</span><b>${esc(r[1])}</b></div>`;
+let blobP=null;
+function rcpt(o){
+  const n=new Date,tx=Date.now()%1e8;
+  $('r-rows').innerHTML=[['التاريخ',n.toLocaleDateString('en-GB')],['الوقت',n.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'})],['رقم العملية','#'+String(tx).padStart(8,'0')]].map(row).join('')+'<div class="dash"></div>'+o.rows.map(row).join('');
+  $('r-tl').textContent=o.tl;$('r-tv').textContent=o.tv;const st=$('r-stamp');st.textContent=o.stamp[0];st.style.color=o.stamp[1];
+  $('r-bar').innerHTML=barcode(tx);$('r-site').textContent=location.protocol.startsWith('http')?location.host:'WORTHIT';
+  $('drcp').showModal();
+  blobP=new Promise(r=>setTimeout(r,250)).then(async()=>{await document.fonts.ready;const c=await html2canvas($('story'),{backgroundColor:'#101828',scale:2,useCORS:true});return new Promise((res,rej)=>c.toBlob(b=>b?res(b):rej(),'image/png'))});blobP.catch(()=>{});
+}
+function saveBlob(b){const a=document.createElement('a');a.download='worthit-receipt.png';a.href=URL.createObjectURL(b);document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),4000)}
+async function busy(btn,lb,fn){const old=btn.textContent;btn.textContent=lb;btn.disabled=true;try{await fn(await blobP)}catch(e){alert('تعذر إنشاء الصورة. حاول مرة أخرى.')}btn.textContent=old;btn.disabled=false}
+$('r-dl').onclick=()=>busy($('r-dl'),'جارٍ إنشاء الصورة...',saveBlob);
+$('r-sh').onclick=()=>busy($('r-sh'),'جارٍ التجهيز...',async b=>{const f=new File([b],'worthit-receipt.png',{type:'image/png'});if(navigator.canShare&&navigator.canShare({files:[f]})){try{await navigator.share({files:[f],title:'فاتورة سحب من العمر'});return}catch(e){if(e.name==='AbortError')return}}saveBlob(b)});
+$('r-x').onclick=()=>$('drcp').close();
 
-document.addEventListener('input',e=>{const t=e.target,k=t.dataset.k;
-if(k){sp(k,t.value);$$('[data-k="'+k+'"]').forEach(o=>o!==t&&'value'in o&&(o.value=t.value))}
-else if(t.dataset.i){S.items.find(x=>x.id==t.dataset.i)[t.dataset.f]=t.value}else return;save();R()});
-document.addEventListener('click',e=>{const t=e.target,b=t.closest('button');
-if(t.classList.contains('modal'))t.classList.add('hidden');
-if(!b)return;const d=b.dataset;
-if(d.open)show(d.open);else if('close'in d)b.closest('.modal').classList.add('hidden');
-else if(d.t){S.tab=d.t;sync()}
-else if(d.v!==undefined){sp(b.parentElement.dataset.k,d.v);sync()}
-else if(d.del){S.items=S.items.filter(i=>i.id!=d.del);L()}
-else if(b.id=='add'){S.items.push({id:Date.now(),n:'بند جديد',a:'',t:'o'});L()}
-else return;save();R()});
+/* ---------- Info dialogs ---------- */
+const I={priv:['سياسة الخصوصية','<p>كل ما تدخله (المرتب، الالتزامات، المصروفات اليومية) يُحفظ داخل متصفحك فقط عبر localStorage، ولا يُرسل إلى أي خادم ولا نملك نسخة منه.</p><p>مسح بيانات المتصفح أو الموقع يحذف بياناتك نهائياً.</p><p>قد تعرض الإعلانات (Google AdSense) ملفات تعريف ارتباط يضعها مزوّد الإعلانات وفق سياساته، ويمكنك إدارتها من إعدادات إعلانات Google.</p>'],terms:['شروط الاستخدام','<p>الأداة للتوعية والحساب التقريبي فقط، وليست استشارة مالية أو قانونية. القرارات المالية مسؤوليتك وحدك.</p><p>الأرقام تعتمد على ما تدخله، ونبذل جهدنا لدقة المعادلات دون أي ضمان بالنتائج.</p>'],about:['عن الأداة','<p>«احسبها بعمرك & مصروفي الآمن» تحوّل الأسعار إلى ساعات عمل حقيقية، وتحسب لك ميزانية آمنة لكل يوم حتى يوم القبض، مع حماية التزاماتك الثابتة.</p>']};
+q('[data-i]').forEach(a=>a.onclick=e=>{e.preventDefault();const[t,b]=I[a.dataset.i];$('i-t').textContent=t;$('i-b').innerHTML=b;$('dinfo').showModal()});
+$('i-x').onclick=()=>$('dinfo').close();
 
-async function snap(){const el=$('#rc'+S.tab+' .rc');const c=await html2canvas(el,{scale:2,backgroundColor:null,useCORS:true});
-const o=document.createElement('canvas');o.width=1080;o.height=1920;const x=o.getContext('2d'),g=x.createLinearGradient(0,0,1080,1920);
-g.addColorStop(0,'#0b1226');g.addColorStop(1,'#2b1745');x.fillStyle=g;x.fillRect(0,0,1080,1920);
-const w=Math.min(860,1560*c.width/c.height),h=c.height*w/c.width;x.shadowColor='rgba(0,0,0,.6)';x.shadowBlur=40;x.drawImage(c,(1080-w)/2,(1920-h)/2-20,w,h);
-x.shadowBlur=0;x.fillStyle='#9aa6c0';x.font='bold 38px Tajawal,sans-serif';x.textAlign='center';x.fillText('احسبها بعمرك | WorthIt',540,1850);
-return new Promise(r=>o.toBlob(r,'image/png'))}
-$('#dl').onclick=async()=>{try{const b=await snap(),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='worthit-receipt.png';a.click();toast('تم تحميل الفاتورة ✅')}catch(e){toast('تعذّر إنشاء الصورة')}};
-$('#sh').onclick=async()=>{try{const b=await snap(),f=new File([b],'worthit-receipt.png',{type:'image/png'});
-if(navigator.canShare&&navigator.canShare({files:[f]}))await navigator.share({files:[f],title:'احسبها بعمرك',text:'شوف الشراء ده كلّفني كام من عمري ⏳'});
-else if(navigator.clipboard&&window.ClipboardItem){await navigator.clipboard.write([new ClipboardItem({'image/png':b})]);toast('تم نسخ الصورة للحافظة 📋')}
-else{const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='worthit-receipt.png';a.click()}}catch(e){if(e.name!='AbortError')toast('تعذّرت المشاركة')}};
+/* ---------- PWA ---------- */
+try{const ic="data:image/svg+xml,"+encodeURIComponent("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='#101828'/><text x='32' y='44' font-size='34' text-anchor='middle'>⏳</text></svg>");
+const l=document.createElement('link');l.rel='manifest';l.href=URL.createObjectURL(new Blob([JSON.stringify({name:'احسبها بعمرك & مصروفي الآمن',short_name:'مصروفي الآمن',start_url:location.href.split('#')[0],display:'standalone',dir:'rtl',lang:'ar',background_color:'#101828',theme_color:'#101828',icons:[{src:ic,sizes:'any',type:'image/svg+xml'}]})],{type:'application/manifest+json'}));document.head.appendChild(l)}catch(e){}
+if('serviceWorker' in navigator&&location.protocol.startsWith('http'))navigator.serviceWorker.register('sw.js').catch(()=>{});
+let dip=null;const stand=matchMedia('(display-mode: standalone)').matches||navigator.standalone;
+const ios=/iphone|ipad|ipod/i.test(navigator.userAgent);
+if(!stand&&!localStorage.getItem('ws-pwa-x')){$('pwa').hidden=false;if(ios){$('pwa-ios').textContent='من زر المشاركة اختر «إضافة إلى الشاشة الرئيسية».';$('pwa-go').hidden=true}}
+addEventListener('beforeinstallprompt',e=>{e.preventDefault();dip=e});
+$('pwa-go').onclick=async()=>{if(dip){dip.prompt();await dip.userChoice;dip=null;$('pwa').hidden=true}else $('pwa-ios').textContent='من قائمة المتصفح اختر «تثبيت التطبيق» أو «إضافة إلى الشاشة الرئيسية».'};
+$('pwa-x').onclick=()=>{$('pwa').hidden=true;try{localStorage.setItem('ws-pwa-x',1)}catch(e){}};
 
-L();sync();R();
-if(!S.income&&!localStorage.getItem('worthit_seen')){show('prof');try{localStorage.setItem('worthit_seen',1)}catch(e){}}
-</script></body></html>
+/* ---------- Init ---------- */
+function all(){badge();home();buy();hab();dis()}
+all();go(0);if(!S.sal)$('gear').click();
+document.addEventListener('visibilitychange',()=>{if(!document.hidden&&dk(new Date)!==curDay)all()});
+setInterval(()=>{if(dk(new Date)!==curDay)all()},60000);
+</script>
+</body>
+</html>
